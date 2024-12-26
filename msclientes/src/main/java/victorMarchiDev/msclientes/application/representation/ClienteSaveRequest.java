@@ -1,29 +1,16 @@
-package victorMarchiDev.msclientes.domain;
+package victorMarchiDev.msclientes.application.representation;
 
-import jakarta.persistence.*;
+import victorMarchiDev.msclientes.domain.Cliente;
 
 
-@Entity
-public class Cliente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ClienteSaveRequest {
 
     private String cpf;
-
     private String nome;
-
     private Integer idade;
 
-    public Cliente(String cpf, String nome, Integer idade) {
-        this.cpf = cpf;
-        this.nome = nome;
-        this.idade = idade;
-    }
-
-    public Cliente() {
-
+    public Cliente toModel(){
+        return new Cliente(cpf, nome, idade);
     }
 
     public String getCpf() {
