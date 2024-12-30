@@ -1,6 +1,8 @@
 package victorMarchiDev.msclientes.application;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,9 +13,11 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("clientes")
+@Slf4j
 public class ClienteController {
 
     private final ClienteService service;
+
 
     public ClienteController(ClienteService service) {
         this.service = service;
@@ -22,6 +26,7 @@ public class ClienteController {
 
     @GetMapping
     public String status(){
+        log.info("Obtendo o status do microservice de clientes");
         return "OK";
     }
 
