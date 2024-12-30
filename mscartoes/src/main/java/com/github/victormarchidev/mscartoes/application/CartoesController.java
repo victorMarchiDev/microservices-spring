@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("cartoes")
 public class CartoesController {
@@ -25,11 +27,19 @@ public class CartoesController {
 
     @PostMapping
     public ResponseEntity cadastrarCartao(@RequestBody CartaoSaveRequest request){
-        Cartao cartao = request.toModel();
+        var cartao = request.toModel();
         service.save(cartao);
+        System.out.println(cartao.toString());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .build();
     }
+
+    @GetMapping(params = "renda")
+    public ResponseEntity<List<Cartao>> getCartoesRendaAte(@RequestParam("renda") Long renda){
+        List<Cartao> list = service.getCartoesRendaMenorIgual(renda);
+        return ResponseEntity.ok(list);
+    }
+
 
 }

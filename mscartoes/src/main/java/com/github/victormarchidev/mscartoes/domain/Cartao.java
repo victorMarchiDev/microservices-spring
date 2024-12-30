@@ -16,19 +16,16 @@ public class Cartao {
     private Long id;
     private String nome;
 
-    @Enumerated(EnumType.STRING)
-    private BandeiraCartao bandeira;
+    private String bandeira;
 
     private BigDecimal renda;
     private BigDecimal limiteBasico;
 
-    public Cartao(String nome, BandeiraCartao bandeira, BigDecimal renda, BigDecimal limiteBasico) {
+    public Cartao(String nome, String bandeira, BigDecimal renda, BigDecimal limiteBasico) {
         this.nome = nome;
         this.bandeira = bandeira;
         this.renda = renda;
         this.limiteBasico = limiteBasico;
     }
 
-    public Cartao(String nome, String bandeira, BigDecimal renda, BigDecimal limite) {
-    }
 }
