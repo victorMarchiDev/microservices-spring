@@ -23,6 +23,7 @@ Este repositório contém um projeto de **arquitetura de microserviços** desenv
 
 - **Microservice Clientes**: Permite salvar um cliente e buscar os dados por CPF🔧
 - **Microservice Cartoes**: Permite salvar um cartao, listar cartoes por renda e buscar cartao por cliente⚡
+- **Microservice Avaliador de Credito**: Permite avaliar o credito de um cliente com base em sua renda e listar os cartoes disponiveis⚡
 - **Gateway/Cloud Gateway**: Controla o tráfego entre os microserviços e oferece uma camada de segurança adicional com LoadBalancer. 🔀
 - **RabbitMQ**: Responsável pela comunicação assíncrona entre os microserviços. 📦
 - **Keycloak**: Sistema de gerenciamento de identidade utilizado para autenticação e autorização dos usuários. 👤
