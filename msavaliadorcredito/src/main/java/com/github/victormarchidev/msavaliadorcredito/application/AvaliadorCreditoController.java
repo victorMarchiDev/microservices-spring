@@ -2,9 +2,8 @@ package com.github.victormarchidev.msavaliadorcredito.application;
 
 import com.github.victormarchidev.msavaliadorcredito.application.ex.DadosClienteNotFoundException;
 import com.github.victormarchidev.msavaliadorcredito.application.ex.ErroComunicacaoMicroservicesException;
-import com.github.victormarchidev.msavaliadorcredito.domain.model.DadosAvaliacao;
-import com.github.victormarchidev.msavaliadorcredito.domain.model.RetornoAvaliacaoCliente;
-import com.github.victormarchidev.msavaliadorcredito.domain.model.SituacaoCliente;
+import com.github.victormarchidev.msavaliadorcredito.application.ex.ErroSolicitacaoCartaoException;
+import com.github.victormarchidev.msavaliadorcredito.domain.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +50,17 @@ public class AvaliadorCreditoController {
             return ResponseEntity.status(HttpStatus.resolve(e.getStatus()))
                     .body(e.getMessage());
         }
+    }
+
+    @PostMapping("/solicitacoes-cartao")
+    public ResponseEntity solicitarCartao(@RequestBody DadosSolicitacaoEmissaoCartao dados){
+        try{
+            ProtocoloSolicitacaoCartao protocoloSolicitacaoCartao = avaliadorCreditoService
+                    .solicitarEmissaoCartao(dados);
+        }catch (ErroSolicitacaoCartaoException e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

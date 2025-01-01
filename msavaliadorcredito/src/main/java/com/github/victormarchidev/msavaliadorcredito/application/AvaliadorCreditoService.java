@@ -2,9 +2,11 @@ package com.github.victormarchidev.msavaliadorcredito.application;
 
 import com.github.victormarchidev.msavaliadorcredito.application.ex.DadosClienteNotFoundException;
 import com.github.victormarchidev.msavaliadorcredito.application.ex.ErroComunicacaoMicroservicesException;
+import com.github.victormarchidev.msavaliadorcredito.application.ex.ErroSolicitacaoCartaoException;
 import com.github.victormarchidev.msavaliadorcredito.domain.model.*;
 import com.github.victormarchidev.msavaliadorcredito.infra.clients.CartoesResourceClient;
 import com.github.victormarchidev.msavaliadorcredito.infra.clients.ClienteResourceClient;
+import com.github.victormarchidev.msavaliadorcredito.infra.mqueue.SolicitacaoEmissaoCartaoPublisher;
 import feign.FeignException;
 import feign.Response;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class AvaliadorCreditoService {
 
     private final ClienteResourceClient clientesClient;
     private final CartoesResourceClient cartoesClient;
+    private final SolicitacaoEmissaoCartaoPublisher emissaoCartaoPublisher;
 
     public SituacaoCliente obterSituacaoCliente(String cpf) throws DadosClienteNotFoundException, ErroComunicacaoMicroservicesException{
         try {
@@ -75,6 +79,16 @@ public class AvaliadorCreditoService {
                 throw new DadosClienteNotFoundException();
             }
             throw new ErroComunicacaoMicroservicesException(e.getMessage(), status);
+        }
+    }
+
+    public ProtocoloSolicitacaoCartao solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartao dados){
+        try{
+            emissaoCartaoPublisher.solicitarCartao(dados);
+            var protocolo = UUID.randomUUID().toString();
+            return new ProtocoloSolicitacaoCartao(protocolo);
+        } catch (Exception e) {
+            throw new ErroSolicitacaoCartaoException(e.getMessage());
         }
     }
 
