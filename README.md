@@ -6,7 +6,7 @@ Este repositório contém um projeto de **arquitetura de microserviços** desenv
 
 - **Java**: Linguagem principal utilizada para o desenvolvimento dos microserviços. ☕
 - **Spring Boot**: Framework para construção dos microserviços. 🌱
-- **RabbitMQ**: Sistema de mensageria para comunicação assíncrona entre os microserviços com protocolo AMQP. 📡
+- **RabbitMQ**: Sistema de mensageria para comunicação assíncrona entre os microserviços com protocolo AMQP.
 - **OpenFeign**: Estabelece comunicação síncrona entre os microserviços. 📡
 - **Docker**: Contêineres para facilitar o desenvolvimento e a execução dos microserviços. 🐳
 - **Spring Cloud**: Ferramentas adicionais para construção de sistemas distribuídos. ☁️
